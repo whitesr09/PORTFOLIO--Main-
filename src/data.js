@@ -25,15 +25,12 @@ export const STATS = [
   { value: 6, suffix: '', label: 'Live GitHub projects' },
 ]
 
-export const SKILLS = [
-  { name: 'Kotlin', level: 92, note: 'Primary language — clean, modern Android', icon: 'code' },
-  { name: 'Jetpack Compose', level: 90, note: 'Declarative UI with Material 3', icon: 'layout' },
-  { name: 'UI / UX Design', level: 88, note: 'Minimal systems, motion, typography', icon: 'pen' },
-  { name: 'Git & GitHub', level: 86, note: 'Branches, CI, releases — from phone', icon: 'git' },
-  { name: 'Android SDK', level: 85, note: 'Full platform toolkit, end to end', icon: 'phone' },
-  { name: 'Room & DataStore', level: 82, note: 'Offline-first data that persists', icon: 'db' },
-  { name: 'AI Automation', level: 80, note: 'Agents & workflows that remove busywork', icon: 'spark' },
-  { name: 'Java', level: 78, note: 'Solid foundations, legacy support', icon: 'coffee' },
+export const TOOLKIT = [
+  { name: 'Android development', icon: 'phone', items: ['Kotlin', 'Jetpack Compose', 'Android SDK', 'Material 3'] },
+  { name: 'Development workflow', icon: 'git', items: ['Git', 'GitHub Actions', 'CI/CD', 'Gradle'] },
+  { name: 'Data and architecture', icon: 'db', items: ['Room', 'DataStore', 'REST APIs', 'Offline-first architecture'] },
+  { name: 'Design', icon: 'pen', items: ['UI/UX', 'Typography', 'Interaction design', 'Responsive layouts'] },
+  { name: 'Exploration', icon: 'spark', items: ['AI APIs', 'Agent workflows', 'Automation'] },
 ]
 
 export const PROJECTS = [

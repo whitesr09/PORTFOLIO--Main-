@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useSpring, useInView, AnimatePresence } from 'framer-motion'
 import {
   ArrowUpRight, ArrowUp, Menu, X, MapPin, GraduationCap, Smartphone,
-  Code2, LayoutDashboard, PenTool, GitBranch, Database, Sparkles, Coffee,
+  PenTool, GitBranch, Database, Sparkles,
   Check, Copy, Mail, Send, Github, Instagram, MessageCircle, Sun, Moon,
 } from 'lucide-react'
-import { PROFILE, SOCIALS, STATS, SKILLS, PROJECTS, JOURNEY, MARQUEE } from './data'
+import { PROFILE, SOCIALS, STATS, TOOLKIT, PROJECTS, JOURNEY, MARQUEE } from './data'
 
 /* Motion stays on transform/opacity only — 60fps, no layout thrash. */
 const fadeUp = {
@@ -47,7 +47,7 @@ function Counter({ value, suffix }) {
   return <span ref={ref}>{n}<em>{suffix}</em></span>
 }
 
-const SKILL_ICONS = { code: Code2, layout: LayoutDashboard, pen: PenTool, git: GitBranch, phone: Smartphone, db: Database, spark: Sparkles, coffee: Coffee }
+const TOOLKIT_ICONS = { pen: PenTool, git: GitBranch, phone: Smartphone, db: Database, spark: Sparkles }
 const SOCIAL_ICONS = { github: Github, instagram: Instagram, whatsapp: MessageCircle, telegram: Send, mail: Mail }
 
 const NAV = [
@@ -219,26 +219,26 @@ export default function App() {
         </div>
       </section>
 
-      {/* SKILLS */}
+      {/* TECHNICAL TOOLKIT */}
       <section className="wrap" id="skills" style={{ paddingTop: 0 }}>
-        <SectionHead eyebrow="Skills" title="What I bring to the table." sub="A phone-first toolkit refined over years of late-night builds." />
-        <div className="skills-grid">
-          {SKILLS.map((s, i) => {
-            const Icon = SKILL_ICONS[s.icon]
+        <SectionHead eyebrow="Technical Toolkit" title="The stack behind the work."
+          sub="Grouped by how I actually build — no percentages, just the tools the projects below are made with." />
+        <motion.div className="toolkit" variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
+          {TOOLKIT.map((cat) => {
+            const Icon = TOOLKIT_ICONS[cat.icon]
             return (
-              <motion.div key={s.name} className="skill" custom={i % 4} variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
-                <span className="icon"><Icon size={19} /></span>
-                <h3>{s.name}</h3>
-                <p>{s.note}</p>
-                <div className="bar">
-                  <motion.i initial={{ width: 0 }} whileInView={{ width: `${s.level}%` }} viewport={viewport}
-                    transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }} />
+              <div key={cat.name} className="toolkit-row">
+                <div className="toolkit-cat">
+                  <span className="icon"><Icon size={18} /></span>
+                  <h3>{cat.name}</h3>
                 </div>
-                <span className="pct">{s.level}%</span>
-              </motion.div>
+                <div className="tags toolkit-items">
+                  {cat.items.map((item) => <span key={item}>{item}</span>)}
+                </div>
+              </div>
             )
           })}
-        </div>
+        </motion.div>
       </section>
 
       {/* PROJECTS */}
