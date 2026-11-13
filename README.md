@@ -11,6 +11,7 @@ Professional portfolio of **Ahammed Nishad K** — Android Developer & Designer,
 - **Fonts:** Space Grotesk (display) · Inter (body) · JetBrains Mono (labels/numbers)
 - **Icons:** Lucide only — no emoji icons
 - **Motion:** Framer Motion — transform/opacity only (60fps, no layout thrash), animated counters & skill bars, spotlight project cards, scroll progress, `prefers-reduced-motion` respected
+- **Themes:** Dark + light (Astryx neutral in both) — Sun/Moon toggle in the nav, choice saved to `localStorage`, first visit follows the visitor's system preference, theme is set before first paint so there is no flash
 
 ## Sections
 

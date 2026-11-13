@@ -3,7 +3,7 @@ import { motion, useScroll, useSpring, useInView, AnimatePresence } from 'framer
 import {
   ArrowUpRight, ArrowUp, Menu, X, MapPin, GraduationCap, Smartphone,
   Code2, LayoutDashboard, PenTool, GitBranch, Database, Sparkles, Coffee,
-  Check, Copy, Mail, Send, Github, Instagram, MessageCircle,
+  Check, Copy, Mail, Send, Github, Instagram, MessageCircle, Sun, Moon,
 } from 'lucide-react'
 import { PROFILE, SOCIALS, STATS, SKILLS, PROJECTS, JOURNEY, MARQUEE } from './data'
 
@@ -76,6 +76,20 @@ export default function App() {
   const [showTop, setShowTop] = useState(false)
   const [copied, setCopied] = useState(false)
   const active = useActiveSection()
+  const [theme, setTheme] = useState(
+    () => document.documentElement.dataset.theme || 'dark',
+  )
+
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.add('theme-anim')
+    root.dataset.theme = theme
+    try { localStorage.setItem('nshd-theme', theme) } catch { /* private mode */ }
+    const meta = document.querySelector('meta[name="theme-color"]')
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#f6f6f3' : '#0a0a0b')
+    const t = setTimeout(() => root.classList.remove('theme-anim'), 400)
+    return () => clearTimeout(t)
+  }, [theme])
 
   useEffect(() => {
     let ticking = false
@@ -117,6 +131,10 @@ export default function App() {
             ))}
           </div>
           <a href="#contact" className="btn btn-primary btn-sm nav-cta">Let&apos;s Talk <ArrowUpRight size={15} /></a>
+          <button className="theme-btn" onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
+            aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'} aria-pressed={theme === 'light'}>
+            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
           <button className="burger" onClick={() => setMenuOpen((v) => !v)} aria-label="Toggle menu" aria-expanded={menuOpen}>
             {menuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
