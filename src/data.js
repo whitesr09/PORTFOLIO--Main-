@@ -18,11 +18,11 @@ export const SOCIALS = [
   { label: 'Email', handle: 'nishadahammed081@gmail.com', href: 'mailto:nishadahammed081@gmail.com', key: 'mail' },
 ]
 
-export const STATS = [
-  { value: 9, suffix: '+', label: 'Apps & products built' },
-  { value: 3, suffix: '+', label: 'Years of building' },
-  { value: 100, suffix: '%', label: 'Phone-first workflow' },
-  { value: 6, suffix: '', label: 'Live GitHub projects' },
+export const HERO_TILES = [
+  { icon: 'phone', title: 'Phone-first, end to end', text: 'Design, code, CI and signed releases — all from one Android phone.', href: '#about' },
+  { icon: 'layers', title: 'Android × Design', text: 'Kotlin & Compose engineering with a designer\'s eye for detail.', href: '#skills' },
+  { icon: 'github', title: 'Open source, verifiable', text: 'Real code and real commits — every project here links to its public repo.', href: '#projects' },
+  { icon: 'spark', title: 'Currently shipping', text: 'JARVIS-2.0 and DayLoop — and open for new collaborations.', href: '#contact', accent: true },
 ]
 
 export const TOOLKIT = [
@@ -42,6 +42,7 @@ export const PROJECTS = [
     tags: ['Kotlin', 'Compose', 'AI Live'],
     href: 'https://github.com/whitesr09/JARVIS-2.0',
     accent: 'AI',
+    status: 'Shipped · v2.0.4',
     featured: true,
   },
   {
@@ -52,6 +53,7 @@ export const PROJECTS = [
     tags: ['Kotlin', 'Compose', 'Material 3'],
     href: 'https://github.com/whitesr09/StudyFlow',
     accent: 'SF',
+    status: 'In active development',
     featured: true,
   },
   {
@@ -62,6 +64,7 @@ export const PROJECTS = [
     tags: ['Kotlin', 'DataStore', 'Bento UI'],
     href: 'https://github.com/whitesr09/H-Tracker',
     accent: 'DL',
+    status: 'Shipped · v0.4.0',
     featured: true,
   },
   {
@@ -72,6 +75,7 @@ export const PROJECTS = [
     tags: ['Kotlin', 'Room', 'Offline-first'],
     href: 'https://github.com/whitesr09/NUR-M3',
     accent: 'N3',
+    status: 'In development · v0.29 preview',
   },
   {
     title: 'FreeLLM',
@@ -81,6 +85,7 @@ export const PROJECTS = [
     tags: ['Kotlin', 'Gemini API', 'CI/CD'],
     href: 'https://github.com/whitesr09/Gemini-FreeLLM-Android',
     accent: 'FL',
+    status: 'Shipped · v2.2.4',
   },
   {
     title: 'EVOLVE',
@@ -90,6 +95,7 @@ export const PROJECTS = [
     tags: ['Web App', 'Game Design', 'Concept'],
     href: 'https://github.com/whitesr09/evolve',
     accent: 'EV',
+    status: 'Concept',
   },
 ]
 

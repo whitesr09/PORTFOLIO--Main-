@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useSpring, useInView, AnimatePresence } from 'framer-motion'
+import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion'
 import {
   ArrowUpRight, ArrowUp, Menu, X, MapPin, GraduationCap, Smartphone,
   PenTool, GitBranch, Database, Sparkles,
-  Check, Copy, Mail, Send, Github, Instagram, MessageCircle, Sun, Moon,
+  Check, Copy, Mail, Send, Github, Instagram, MessageCircle, Sun, Moon, Layers,
 } from 'lucide-react'
-import { PROFILE, SOCIALS, STATS, TOOLKIT, PROJECTS, JOURNEY, MARQUEE } from './data'
+import { PROFILE, SOCIALS, HERO_TILES, TOOLKIT, PROJECTS, JOURNEY, MARQUEE } from './data'
 
 /* Motion stays on transform/opacity only — 60fps, no layout thrash. */
 const fadeUp = {
@@ -27,27 +27,8 @@ function SectionHead({ eyebrow, title, sub }) {
   )
 }
 
-function Counter({ value, suffix }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, margin: '-40px' })
-  const [n, setN] = useState(0)
-  useEffect(() => {
-    if (!inView) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { setN(value); return }
-    const t0 = performance.now(), dur = 1100
-    let raf
-    const tick = (t) => {
-      const p = Math.min((t - t0) / dur, 1)
-      setN(Math.round(value * (1 - Math.pow(1 - p, 3))))
-      if (p < 1) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [inView, value])
-  return <span ref={ref}>{n}<em>{suffix}</em></span>
-}
-
 const TOOLKIT_ICONS = { pen: PenTool, git: GitBranch, phone: Smartphone, db: Database, spark: Sparkles }
+const HERO_ICONS = { phone: Smartphone, layers: Layers, github: Github, spark: Sparkles }
 const SOCIAL_ICONS = { github: Github, instagram: Instagram, whatsapp: MessageCircle, telegram: Send, mail: Mail }
 
 const NAV = [
@@ -178,16 +159,19 @@ export default function App() {
         </motion.div>
 
         <div className="bento">
-          {STATS.slice(0, 3).map((s, i) => (
-            <motion.div key={s.label} className="tile" custom={i} variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
-              <span className="num"><Counter value={s.value} suffix={s.suffix} /></span>
-              <span className="lbl">{s.label}</span>
-            </motion.div>
-          ))}
-          <motion.a href="#projects" className="tile accent-tile" custom={3} variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
-            <span className="num">6 live</span>
-            <span className="lbl">Open-source projects on GitHub — explore them <ArrowUpRight size={14} style={{ verticalAlign: '-2px' }} /></span>
-          </motion.a>
+          {HERO_TILES.map((tile, i) => {
+            const Icon = HERO_ICONS[tile.icon]
+            return (
+              <motion.a key={tile.title} href={tile.href} className={`tile${tile.accent ? ' accent-tile' : ''}`}
+                custom={i} variants={fadeUp} initial="hidden" whileInView="show" viewport={viewport}>
+                <span className="t-icon"><Icon size={19} /></span>
+                <span>
+                  <span className="t-title">{tile.title}</span>
+                  <span className="t-text">{tile.text}</span>
+                </span>
+              </motion.a>
+            )
+          })}
         </div>
       </header>
 
@@ -243,7 +227,7 @@ export default function App() {
 
       {/* PROJECTS */}
       <section className="wrap" id="projects" style={{ paddingTop: 0 }}>
-        <SectionHead eyebrow="Projects" title="Things I've been building." sub="Real apps and products, designed and developed end-to-end by me." />
+        <SectionHead eyebrow="Projects" title="Things I've been building." sub="Real apps and products, designed and developed end-to-end by me. Every card shows its current status and links to its public repo — check the code, commits and releases yourself." />
         <div className="projects-grid">
           {PROJECTS.map((p, i) => (
             <motion.a key={p.title} href={p.href} target="_blank" rel="noreferrer" className="project"
@@ -251,12 +235,13 @@ export default function App() {
               onMouseMove={spotlight}>
               <div className="top">
                 <span className="mono-badge">{p.accent}</span>
-                <ArrowUpRight size={18} className="arrow" />
+                <span className="status-chip">{p.status}</span>
               </div>
               <h3>{p.title}</h3>
               <span className="tagline">{p.tagline}</span>
               <p>{p.description}</p>
               <div className="tags">{p.tags.map((t) => <span key={t}>{t}</span>)}</div>
+              <span className="repo-link"><Github size={14} /> View on GitHub <ArrowUpRight size={14} /></span>
             </motion.a>
           ))}
         </div>
